@@ -1,12 +1,36 @@
-import React, {useEffect, useState} from 'react';
-import {Text} from 'react-native';
-import {Button} from 'native-base';
+import { Button, HStack, IconButton } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { Text, View, Image } from 'react-native';
 
-export const Main =()=>{
-  return(
-      
-    <Button onPess={}><Text>Растения</Text></Button>
-    <Button><Text>Животные</Text></Button>
-    <Button><Text>Растения</Text></Button>
-    )
-}
+import { SECTION_SCREEN } from '../NavigationIndex';
+import { useNavigation } from '@react-navigation/native';
+
+export const Main = () => {
+    const [ChoosenSection, setChoosenSection] = useState();
+    const navigation = useNavigation();
+    const handleChoose = value => () => {
+        navigation.navigate(SECTION_SCREEN, { value });
+    };
+    return (
+        <View backgroundcolor={'#ffffff'}>
+            <Image source={require('./picture/map.png')} />
+            <HStack w='100%' space={2} px='2' mt='4'>
+                <Button size='sm' variant='outline' onPress={handleChoose('places')}>
+                    Места
+                </Button>
+
+                <Button size='sm' variant='outline' onPress={handleChoose('mushrooms')}>
+                    Грибы
+                </Button>
+
+                <Button size='sm' variant='outline' onPress={handleChoose('animals')}>
+                    Животные
+                </Button>
+
+                <Button size='sm' variant='outline' onPress={handleChoose('flowers')}>
+                    Растения
+                </Button>
+            </HStack>
+        </View>
+    );
+};
